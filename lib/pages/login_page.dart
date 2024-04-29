@@ -4,11 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class LoginPage extends StatelessWidget {
+
+  final void Function() onTap;
+
+  LoginPage({super.key, required this.onTap});
+
   //textcontrollers
   final TextEditingController email_controller = TextEditingController();
   final TextEditingController password_controller = TextEditingController();
 
-  LoginPage({super.key});
 
   //log methos
   void login() {
@@ -94,9 +98,7 @@ class LoginPage extends StatelessWidget {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {
-                        //Navigator.pushNamed(context, "/signup");
-                      },
+                      onTap: onTap,
                       child: const Text(
                         " Signup Here!",
                         style: TextStyle(
