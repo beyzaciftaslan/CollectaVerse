@@ -1,5 +1,6 @@
 //import 'package:collecta_verse_pt2/landing_page.dart';
 import 'package:collecta_verse_pt2/pages/login_page.dart';
+import 'package:collecta_verse_pt2/theme/dark_mode.dart';
 import 'package:collecta_verse_pt2/theme/light_mode.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +16,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: LoginPage(),
       theme: lightMode,
+      darkTheme: darkMode,
     );
+
   }
 }

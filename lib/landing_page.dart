@@ -31,11 +31,16 @@ class _LandingPageState extends State<LandingPage> {
           children: [
             Expanded(
               child: PageView.builder(
+                itemCount: landing_data.length,
                 controller: _pageController,
                 itemBuilder: (context, index) => LandingContent(
-                  //image: "assets/images/deneme3.png",
-                  title: "Find the collect items you have been loooking for",
-                  description: "Sell or trade your collection products easily",
+                  // image: "assets/images/deneme3.png",
+                  // title: "Find the collect items you have been loooking for",
+                  // description: "Sell or trade your collection products easily",
+                  image: landing_data[index].image,
+                  title: landing_data[index].title,
+                  description: landing_data[index].description,
+
                 ),
               ),
             ),
@@ -45,10 +50,10 @@ class _LandingPageState extends State<LandingPage> {
               child: ElevatedButton(
                 onPressed: () {
                   _pageController.nextPage(
-                      duration: Duration(milliseconds: 250),
-                      curve: Curves.ease,
+                    duration: const Duration(milliseconds: 250),
+                    curve: Curves.ease,
                   );
-                  },
+                },
                 style: ElevatedButton.styleFrom(
                   shape: const CircleBorder(),
                   padding: EdgeInsets.zero,
@@ -75,14 +80,55 @@ class _LandingPageState extends State<LandingPage> {
   }
 }
 
+class Landing {
+  final String image, title, description;
+
+  Landing({
+    required this.image,
+    required this.description,
+    required this.title,
+});
+
+}
+
+final List<Landing> landing_data = [
+  Landing(
+    image: "assets/images/deneme3.png",
+    title: "Find the collect items you have been loooking for",
+    description: "Sell or trade your collection products easily",
+  ),
+  Landing(
+    image: "assets/images/deneme3.png",
+    title: "Find the collect items you have been loooking for",
+    description: "Sell or trade your collection products easily",
+  ),
+  Landing(
+    image: "assets/images/deneme3.png",
+    title: "Find the collect items you have been loooking for",
+    description: "Sell or trade your collection products easily",
+  ),
+  Landing(
+    image: "assets/images/deneme3.png",
+    title: "Find the collect items you have been loooking for",
+    description: "Sell or trade your collection products easily",
+  ),
+  Landing(
+    image: "assets/images/deneme3.png",
+    title: "Find the collect items you have been loooking for",
+    description: "Sell or trade your collection products easily",
+  ),
+
+];
+
 class LandingContent extends StatelessWidget {
   const LandingContent({
     Key? key,
+    required this.image,
     required this.title,
     required this.description,
   }) : super(key: key);
 
-  final String title, description;
+  final String title, description, image;
 
   @override
   Widget build(BuildContext context) {
