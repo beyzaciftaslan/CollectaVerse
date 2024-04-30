@@ -1,23 +1,59 @@
 import 'package:collecta_verse_pt2/components/my_button.dart';
 import 'package:collecta_verse_pt2/components/my_textfield.dart';
+import 'package:collecta_verse_pt2/helper/helper_functions.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
 
   final void Function() onTap;
 
-  LoginPage({super.key, required this.onTap});
+  const LoginPage({super.key, required this.onTap});
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   //textcontrollers
   final TextEditingController email_controller = TextEditingController();
+
   final TextEditingController password_controller = TextEditingController();
 
-
   //log methos
-  void login() {
+  void login() async {
     //print(email_controller.text);
     //print(password_controller.text);
+
+    //loading circle
+    showDialog(
+      context: context,
+      builder: (context) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+
+    //signin
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: email_controller.text,
+          password: password_controller.text);
+
+          //circle
+          if(context.mounted){
+            Navigator.pop(context);
+          }
+
+    }
+    //display errs
+    on FirebaseAuthException catch (e) {
+      //circle
+      Navigator.pop(context);
+
+      //show err mesaage
+      displayMessageToUser(e.code, context);
+    }
   }
 
   @override
@@ -98,7 +134,7 @@ class LoginPage extends StatelessWidget {
                       ),
                     ),
                     GestureDetector(
-                      onTap: onTap,
+                      onTap: widget.onTap,
                       child: const Text(
                         " Signup Here!",
                         style: TextStyle(

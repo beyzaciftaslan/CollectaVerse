@@ -1,25 +1,70 @@
 import 'package:collecta_verse_pt2/components/my_button.dart';
 import 'package:collecta_verse_pt2/components/my_textfield.dart';
+import 'package:collecta_verse_pt2/helper/helper_functions.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class SignupPage extends StatelessWidget {
-
+class SignupPage extends StatefulWidget {
   final void Function() onTap;
 
-  SignupPage({super.key,
-    required this.onTap});
+  const SignupPage({super.key, required this.onTap});
 
-    //textcontrollers
+  @override
+  State<SignupPage> createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
+  //textcontrollers
   final TextEditingController email_controller = TextEditingController();
+
   final TextEditingController password_controller = TextEditingController();
+
   final TextEditingController confirm_pw_controller = TextEditingController();
+
   final TextEditingController username_controller = TextEditingController();
 
   //log methos
-  void signup() {
+  void signup() async {
     //print(email_controller.text);
     //print(password_controller.text);
+
+    //loading circle
+    showDialog(
+      context: context,
+      builder: (context) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+
+    //sifre eslesiyo mu
+    if (password_controller.text != confirm_pw_controller.text) {
+      //circle
+      Navigator.pop(context);
+
+      //show err mesaage
+      displayMessageToUser("Passwords do not match!", context);
+    }
+    //if passwords match
+    else {
+      //creat the user
+      try {
+        //create user
+        UserCredential userCredential = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(
+                email: email_controller.text,
+                password: password_controller.text);
+
+        //circle
+        Navigator.pop(context);
+      } on FirebaseAuthException catch (e) {
+        //circle
+        Navigator.pop(context);
+
+        //show err mesaage
+        displayMessageToUser(e.code, context);
+      }
+    }
   }
 
   @override
@@ -57,7 +102,7 @@ class SignupPage extends StatelessWidget {
 
                 const SizedBox(height: 10),
 
-                 //mail textfield
+                //mail textfield
                 MyTextField(
                     hintText: "E-mail",
                     obscureText: false,
@@ -73,7 +118,6 @@ class SignupPage extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 10),
-
 
                 //password textfield
                 MyTextField(
@@ -118,7 +162,7 @@ class SignupPage extends StatelessWidget {
                       ),
                     ),
                     GestureDetector(
-                      onTap: onTap,
+                      onTap: widget.onTap,
                       child: const Text(
                         " Login Here!",
                         style: TextStyle(

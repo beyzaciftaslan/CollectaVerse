@@ -1,4 +1,5 @@
-import 'package:collecta_verse_pt2/auth/login_or_signup.dart';
+import 'package:collecta_verse_pt2/auth/auth.dart';
+//import 'package:collecta_verse_pt2/auth/login_or_signup.dart';
 import 'package:collecta_verse_pt2/firebase_options.dart';
 import 'package:collecta_verse_pt2/theme/dark_mode.dart';
 import 'package:collecta_verse_pt2/theme/light_mode.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const LoginOrSignup(),
+      home: const AuthPage(),
       theme: lightMode,
       darkTheme: darkMode,
     );
