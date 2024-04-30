@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "475387660223",
+    "project_id": "collectaverse-822eb",
+    "storage_bucket": "collectaverse-822eb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:475387660223:android:d86a1e3f390cd9d8c5c30a",
+        "android_client_info": {
+          "package_name": "com.example.chogiwa.collecta_verse.collecta_verse_pt2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3BrOuYp36tDdjRGE772QHnLpGoOvgkUE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

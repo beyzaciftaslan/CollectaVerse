@@ -38,7 +38,7 @@ class SignupPage extends StatelessWidget {
                   size: 80,
                   color: Theme.of(context).colorScheme.inversePrimary,
                 ),
-                const SizedBox(height: 25),
+                const SizedBox(height: 20),
 
                 //uyg adi
                 Text(
@@ -47,7 +47,7 @@ class SignupPage extends StatelessWidget {
                     fontSize: 20,
                   ),
                 ),
-                const SizedBox(height: 50),
+                const SizedBox(height: 40),
 
                 //mail textfield
                 MyTextField(
