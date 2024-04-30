@@ -1,4 +1,5 @@
 import 'package:collecta_verse_pt2/components/my_drawer.dart';
+import 'package:collecta_verse_pt2/components/my_nav_bar.dart';
 import 'package:collecta_verse_pt2/utils/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -31,29 +32,9 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      drawer: const MyDrawer(),
-
+      //drawer: const MyDrawer(),
       //Hawli navigation bar
-      bottomNavigationBar: GNav(
-        tabs: const [
-          GButton(
-            icon: Icons.home_outlined,
-            text: ' Home',
-          ),
-          GButton(
-            icon: Icons.search,
-            text: ' Search',
-          ),
-          GButton(
-            icon: Icons.favorite_border,
-            text: ' Favorites',
-          ),
-          GButton(
-            icon: Icons.person_outline,
-            text: ' Profile',
-          ),
-        ],
-      ),
+      bottomNavigationBar: const MyNavBar(),
     );
   }
 }
