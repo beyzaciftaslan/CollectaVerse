@@ -2,6 +2,7 @@ import 'package:collecta_verse_pt2/auth/auth.dart';
 //import 'package:collecta_verse_pt2/auth/login_or_signup.dart';
 import 'package:collecta_verse_pt2/firebase_options.dart';
 import 'package:collecta_verse_pt2/mobile_layout.dart';
+import 'package:collecta_verse_pt2/pages/onboarding_page.dart';
 import 'package:collecta_verse_pt2/pages/profile_page.dart';
 import 'package:collecta_verse_pt2/theme/dark_mode.dart';
 import 'package:collecta_verse_pt2/theme/light_mode.dart';
@@ -24,7 +25,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       //home: const AuthPage(),
       //home: const ProfilePage(),
-      home: MobileScreenLayout(),
+      //home: MobileScreenLayout(),
+      home: const OnboardingPage(),
       theme: lightMode,
       darkTheme: darkMode,
     );
