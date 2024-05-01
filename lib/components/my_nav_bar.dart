@@ -1,3 +1,4 @@
+import 'package:collecta_verse_pt2/pages/profile_page.dart';
 import 'package:collecta_verse_pt2/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -8,14 +9,16 @@ class MyNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea( //sf kullandigimda ustteki appbar gitti
+    return SafeArea(
+      //sf kullandigimda ustteki appbar gitti
       child: Container(
         color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
           child: GNav(
             backgroundColor: Colors.white,
-            tabActiveBorder: Border.all(color: color4, width: 1), // tab button border
+            tabActiveBorder:
+                Border.all(color: color4, width: 1), // tab button border
             activeColor: color4,
             color: Colors.black,
             tabBackgroundColor: Colors.grey.shade100,

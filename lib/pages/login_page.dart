@@ -68,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 //logo
                 Icon(
-                  Icons.person,
+                  Icons.favorite_border_outlined,
                   size: 80,
                   color: Theme.of(context).colorScheme.inversePrimary,
                 ),

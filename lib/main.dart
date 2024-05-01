@@ -1,6 +1,8 @@
 import 'package:collecta_verse_pt2/auth/auth.dart';
 //import 'package:collecta_verse_pt2/auth/login_or_signup.dart';
 import 'package:collecta_verse_pt2/firebase_options.dart';
+import 'package:collecta_verse_pt2/mobile_layout.dart';
+import 'package:collecta_verse_pt2/pages/profile_page.dart';
 import 'package:collecta_verse_pt2/theme/dark_mode.dart';
 import 'package:collecta_verse_pt2/theme/light_mode.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +22,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const AuthPage(),
+      //home: const AuthPage(),
+      //home: const ProfilePage(),
+      home: MobileScreenLayout(),
       theme: lightMode,
       darkTheme: darkMode,
     );

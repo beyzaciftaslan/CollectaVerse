@@ -23,18 +23,10 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text("  C O L L E C T A  V E R S E"),
         backgroundColor: color4,
-        elevation: 0,
-        actions: [
-          //logout button
-          IconButton(
-            onPressed: logout,
-            icon: Icon(Icons.logout),
-          ),
-        ],
       ),
       drawer: const MyDrawer(),
       //Hawli navigation bar
-      bottomNavigationBar: const MyNavBar(),
+      //bottomNavigationBar: const MyNavBar(),
     );
   }
 }

@@ -79,7 +79,7 @@ class _SignupPageState extends State<SignupPage> {
               children: [
                 //logo
                 Icon(
-                  Icons.person,
+                  Icons.favorite_border_outlined,
                   size: 80,
                   color: Theme.of(context).colorScheme.inversePrimary,
                 ),
