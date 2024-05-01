@@ -1,4 +1,3 @@
-//kafam corba oldu
 import 'package:collecta_verse_pt2/utils/colors.dart';
 import 'package:collecta_verse_pt2/utils/pages.dart';
 import 'package:flutter/material.dart';
@@ -50,44 +49,50 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
 
 
       //Havali navigation bar
-      bottomNavigationBar: GNav(
-        backgroundColor: Colors.white,
-        tabActiveBorder:
-            Border.all(color: color4, width: 1), // tab button border
-        activeColor: color4,
-        color: Colors.black,
-        tabBackgroundColor: Colors.grey.shade100,
-        gap: 8,
-        padding: EdgeInsets.all(15),
-        tabs: const [
-          //Ev
-          GButton(
-            icon: LineIcons.home,
-            text: ' Home',
+      bottomNavigationBar: Container(
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+          child: GNav(
+            backgroundColor: Colors.white,
+            tabActiveBorder:
+                Border.all(color: color4, width: 1), // tab button border
+            activeColor: color4,
+            color: Colors.black,
+            tabBackgroundColor: Colors.grey.shade100,
+            gap: 8,
+            padding: EdgeInsets.all(15),
+            tabs: const [
+              //Ev
+              GButton(
+                icon: LineIcons.home,
+                text: ' Home',
+              ),
+              //search
+              GButton(
+                icon: LineIcons.search,
+                text: ' Search',
+              ),
+              //add posts
+              GButton(
+                icon: LineIcons.plus,
+                text: ' Add',
+              ),
+              //notifications
+              GButton(
+                icon: LineIcons.heart,
+                text: ' Notifications',
+              ),
+              //proifil
+              GButton(
+                icon: LineIcons.user,
+                text: ' Profile',
+              ),
+            ],
+            onTabChange: navigationTapped,
+            selectedIndex: _page,
           ),
-          //search
-          GButton(
-            icon: LineIcons.search,
-            text: ' Search',
-          ),
-          //add posts
-          GButton(
-            icon: LineIcons.plus,
-            text: ' Add',
-          ),
-          //notifications
-          GButton(
-            icon: LineIcons.heart,
-            text: ' Notifications',
-          ),
-          //proifil
-          GButton(
-            icon: LineIcons.user,
-            text: ' Profile',
-          ),
-        ],
-        onTabChange: navigationTapped,
-        selectedIndex: _page,
+        ),
       ),
     );
   }
