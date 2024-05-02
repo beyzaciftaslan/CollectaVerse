@@ -1,14 +1,10 @@
 import 'package:collecta_verse_pt2/auth/auth.dart';
 //import 'package:collecta_verse_pt2/auth/login_or_signup.dart';
 import 'package:collecta_verse_pt2/firebase_options.dart';
-import 'package:collecta_verse_pt2/mobile_layout.dart';
-import 'package:collecta_verse_pt2/pages/onboarding_page.dart';
-import 'package:collecta_verse_pt2/pages/profile_page.dart';
 import 'package:collecta_verse_pt2/theme/dark_mode.dart';
 import 'package:collecta_verse_pt2/theme/light_mode.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-//import 'package:collecta_verse_pt2/landing_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,10 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      //home: const AuthPage(),
-      //home: const ProfilePage(),
-      //home: MobileScreenLayout(),
-      home: const OnboardingPage(),
+      home: const AuthPage(),
       theme: lightMode,
       darkTheme: darkMode,
     );

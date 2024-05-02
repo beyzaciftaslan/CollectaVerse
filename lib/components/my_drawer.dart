@@ -1,8 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
+
+  void logout() {
+    FirebaseAuth.instance.signOut();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,15 +116,14 @@ class MyDrawer extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 25, bottom: 25),
                 child: ListTile(
+                  onTap: () {
+                    logout();
+                  },
                   leading: Icon(
                     Icons.logout,
                     color: Theme.of(context).colorScheme.inversePrimary,
                   ),
                   title: const Text('logout'),
-                  onTap: () {
-                    //
-                    Navigator.pop(context);
-                  },
                 ),
               ),
             ]));
