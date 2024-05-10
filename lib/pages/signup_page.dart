@@ -81,7 +81,7 @@ class _SignupPageState extends State<SignupPage> {
                 Icon(
                   Icons.favorite_border_outlined,
                   size: 80,
-                  color: Theme.of(context).colorScheme.inversePrimary,
+                  color: Colors.black,
                 ),
                 const SizedBox(height: 20),
 

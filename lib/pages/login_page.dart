@@ -2,12 +2,12 @@ import 'package:collecta_verse_pt2/components/my_button.dart';
 import 'package:collecta_verse_pt2/components/my_square_tile.dart';
 import 'package:collecta_verse_pt2/components/my_textfield.dart';
 import 'package:collecta_verse_pt2/helper/helper_functions.dart';
+import 'package:collecta_verse_pt2/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class LoginPage extends StatefulWidget {
-
   final void Function() onTap;
 
   const LoginPage({super.key, required this.onTap});
@@ -38,14 +38,12 @@ class _LoginPageState extends State<LoginPage> {
     //signin
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: email_controller.text,
-          password: password_controller.text);
+          email: email_controller.text, password: password_controller.text);
 
-          //circle
-          if(context.mounted){
-            Navigator.pop(context);
-          }
-
+      //circle
+      if (context.mounted) {
+        Navigator.pop(context);
+      }
     }
     //display errs
     on FirebaseAuthException catch (e) {
@@ -61,134 +59,147 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(25.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                //logo
-                Icon(
-                  Icons.favorite_border_outlined,
-                  size: 80,
-                  color: Theme.of(context).colorScheme.inversePrimary,
-                ),
-                const SizedBox(height: 25),
-
-                //uyg adi
-                Text(
-                  'C O L L E C T A  V E R S E',
-                  style: TextStyle(
-                    fontSize: 20,
+        body: SafeArea(
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 25),
+                  //logo
+                  Icon(
+                    Icons.favorite_border_outlined,
+                    size: 80,
+                    color: Colors.black,
                   ),
-                ),
-                const SizedBox(height: 50),
+                  const SizedBox(height: 20),
 
-                //mail textfield
-                MyTextField(
-                    hintText: "E-mail",
-                    obscureText: false,
-                    controller: email_controller),
-
-                const SizedBox(height: 10),
-
-                //password textfield
-                MyTextField(
-                  hintText: "Password",
-                  obscureText: true,
-                  controller: password_controller,
-                ),
-
-                const SizedBox(height: 10),
-
-                //forgot p
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      "Forgot password?",
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
+                  //uyg adi
+                  Text(
+                    'C O L L E C T A  V E R S E',
+                    style: TextStyle(
+                      fontSize: 20,
                     ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 25),
 
-                const SizedBox(height: 10),
+                  //mail textfield
+                  MyTextField(
+                      hintText: "E-mail",
+                      obscureText: false,
+                      controller: email_controller),
 
-                //log in button
-                MyButton(
-                  text: "Sign In",
-                  onTap: login,
-                ),
+                  const SizedBox(height: 10),
 
-                const SizedBox(height: 50),
+                  //password textfield
+                  MyTextField(
+                    hintText: "Password",
+                    obscureText: true,
+                    controller: password_controller,
+                  ),
 
-                //or coninue with
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
+                  const SizedBox(height: 10),
+
+                  //forgot p
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey[400],
-                        ),
-                      ),
-                      Padding(padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: Text(
-                        'Or continue with',
+                      Text(
+                        "Forgot password?",
                         style: TextStyle(
-                          color: Colors.grey[700],
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
-                      ),
-                      ),
-                      Expanded(child: Divider(
-                        thickness: 0.5,
-                        color: Colors.grey[400],
-                      ),
                       ),
                     ],
                   ),
+
+                  const SizedBox(height: 10),
+
+                  //log in button
+                  MyButton(
+                    text: "Sign In",
+                    onTap: login,
                   ),
 
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 30),
+
+                  //or coninue with
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Divider(
+                            thickness: 0.5,
+                            color: Colors.grey[400],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Text(
+                            'Or continue with',
+                            style: TextStyle(
+                              color: Colors.grey[700],
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Divider(
+                            thickness: 0.5,
+                            color: Colors.grey[400],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 30),
+
                   //google+apple sign in buttons
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
+                    children:  [
                       //google png
-                      MySquareTile(imagePath: "lib/images/google.png"),
-
+                      MySquareTile(imagePath: "lib/images/google.png",
+                      onTap: () => AuthService().signInWithGoogle(),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
                       //apple png
-                      MySquareTile(imagePath: "lib/images/apple.png"),
+                      MySquareTile(imagePath: "lib/images/apple.png",
+                      onTap: () {
+                        //sign in with apple
+                      },
+                      ),
                     ],
                   ),
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 30),
 
-
-                //dont you have an account? sign up here
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Don't you have an account?",
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.inversePrimary,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: widget.onTap,
-                      child: const Text(
-                        " Signup Here!",
+                  //dont you have an account? sign up here
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Don't you have an account?",
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.inversePrimary,
                         ),
                       ),
-                    ),
-                  ],
-                )
-              ],
+                      GestureDetector(
+                        onTap: widget.onTap,
+                        child: const Text(
+                          " Signup Here!",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ));
