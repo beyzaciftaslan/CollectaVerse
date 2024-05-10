@@ -1,4 +1,5 @@
 import 'package:collecta_verse_pt2/components/my_button.dart';
+import 'package:collecta_verse_pt2/components/my_square_tile.dart';
 import 'package:collecta_verse_pt2/components/my_textfield.dart';
 import 'package:collecta_verse_pt2/helper/helper_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -117,11 +118,54 @@ class _LoginPageState extends State<LoginPage> {
 
                 //log in button
                 MyButton(
-                  text: "Login",
+                  text: "Sign In",
                   onTap: login,
                 ),
 
-                const SizedBox(height: 10),
+                const SizedBox(height: 50),
+
+                //or coninue with
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Divider(
+                          thickness: 0.5,
+                          color: Colors.grey[400],
+                        ),
+                      ),
+                      Padding(padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: Text(
+                        'Or continue with',
+                        style: TextStyle(
+                          color: Colors.grey[700],
+                        ),
+                      ),
+                      ),
+                      Expanded(child: Divider(
+                        thickness: 0.5,
+                        color: Colors.grey[400],
+                      ),
+                      ),
+                    ],
+                  ),
+                  ),
+
+                  const SizedBox(height: 50),
+                  //google+apple sign in buttons
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      //google png
+                      MySquareTile(imagePath: "lib/images/google.png"),
+
+                      //apple png
+                      MySquareTile(imagePath: "lib/images/apple.png"),
+                    ],
+                  ),
+                  const SizedBox(height: 50),
+
 
                 //dont you have an account? sign up here
                 Row(
