@@ -1,11 +1,14 @@
 import 'package:collecta_verse_pt2/auth/auth.dart';
+import 'package:collecta_verse_pt2/auth/login_or_signup.dart';
 //import 'package:collecta_verse_pt2/auth/login_or_signup.dart';
 import 'package:collecta_verse_pt2/firebase_options.dart';
-import 'package:collecta_verse_pt2/pages/onboarding_page.dart';
+import 'package:collecta_verse_pt2/pages/login_page.dart';
+//import 'package:collecta_verse_pt2/pages/onboarding_page.dart';
 import 'package:collecta_verse_pt2/theme/dark_mode.dart';
 import 'package:collecta_verse_pt2/theme/light_mode.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

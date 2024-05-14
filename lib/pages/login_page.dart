@@ -159,19 +159,21 @@ class _LoginPageState extends State<LoginPage> {
                   //google+apple sign in buttons
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children:  [
+                    children: [
                       //google png
-                      MySquareTile(imagePath: "lib/images/google.png",
-                      onTap: () => AuthService().signInWithGoogle(),
+                      MySquareTile(
+                        imagePath: "lib/images/google.png",
+                        onTap: () => AuthService().signInWithGoogle(),
                       ),
                       SizedBox(
                         width: 20,
                       ),
                       //apple png
-                      MySquareTile(imagePath: "lib/images/apple.png",
-                      onTap: () {
-                        //sign in with apple
-                      },
+                      MySquareTile(
+                        imagePath: "lib/images/apple.png",
+                        onTap: () {
+                          //sign in with apple
+                        },
                       ),
                     ],
                   ),
