@@ -1,20 +1,30 @@
+import 'package:collecta_verse_pt2/pages/login_page.dart';
+import 'package:collecta_verse_pt2/pages/settings_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:line_icons/line_icons.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
 
-  void logout() {
-    FirebaseAuth.instance.signOut();
+  // void logout() {
+  //   FirebaseAuth.instance.signOut();
+  // }
+
+  void logout(BuildContext context) {
+    FirebaseAuth.instance.signOut().then((_) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginPage()),
+      );
+    });
   }
 
-
+  // void logout() {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -91,6 +101,13 @@ class MyDrawer extends StatelessWidget {
                       onTap: () {
                         //
                         Navigator.pop(context);
+                        //navigate to settings
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SettingsPage(),
+                          ),
+                        );
                       },
                     ),
                   ),
@@ -119,7 +136,7 @@ class MyDrawer extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 25, bottom: 25),
                 child: ListTile(
                   onTap: () {
-                    logout();
+                    logout(context);
                   },
                   leading: Icon(
                     Icons.logout,

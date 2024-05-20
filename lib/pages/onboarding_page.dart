@@ -1,4 +1,4 @@
-import 'package:collecta_verse_pt2/auth/login_or_signup.dart';
+import 'package:collecta_verse_pt2/pages/login_page.dart';
 import 'package:collecta_verse_pt2/introduction_screens/intro_page_1.dart';
 import 'package:collecta_verse_pt2/introduction_screens/intro_page_2.dart';
 import 'package:collecta_verse_pt2/introduction_screens/intro_page_3.dart';
@@ -70,7 +70,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => LoginOrSignup()));
+                                  builder: (context) => LoginPage()));
                         },
                         child: Text("done"))
                     : GestureDetector(

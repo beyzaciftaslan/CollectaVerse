@@ -1,14 +1,14 @@
-import 'package:collecta_verse_pt2/auth/auth.dart';
-import 'package:collecta_verse_pt2/auth/login_or_signup.dart';
+import 'package:collecta_verse_pt2/pages/login_page.dart';
+//import 'package:collecta_verse_pt2/services/auth/auth_gate.dart';
 //import 'package:collecta_verse_pt2/auth/login_or_signup.dart';
 import 'package:collecta_verse_pt2/firebase_options.dart';
-import 'package:collecta_verse_pt2/pages/login_page.dart';
+import 'package:collecta_verse_pt2/providers/user_provider.dart';
 //import 'package:collecta_verse_pt2/pages/onboarding_page.dart';
 import 'package:collecta_verse_pt2/theme/dark_mode.dart';
 import 'package:collecta_verse_pt2/theme/light_mode.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,12 +21,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: const AuthPage(),
-      //home : const OnboardingPage(),
-      theme: lightMode,
-      darkTheme: darkMode,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => UserProvider()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: const LoginPage(),
+        theme: lightMode,
+        darkTheme: darkMode,
+      ),
     );
   }
 }

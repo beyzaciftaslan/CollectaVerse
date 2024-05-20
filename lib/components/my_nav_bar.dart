@@ -1,4 +1,4 @@
-import 'package:collecta_verse_pt2/pages/profile_page.dart';
+
 import 'package:collecta_verse_pt2/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';

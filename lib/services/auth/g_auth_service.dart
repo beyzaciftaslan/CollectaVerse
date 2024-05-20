@@ -3,7 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class AuthService{
+class GAuthService{
   //google sgin in
   signInWithGoogle() async{
     // interactiv sign process

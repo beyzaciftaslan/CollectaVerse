@@ -1,8 +1,8 @@
 import 'dart:typed_data';
+import 'package:collecta_verse_pt2/models/post.dart';
+import 'package:collecta_verse_pt2/services/storage/storage_methods.dart';
 import 'package:flutter/foundation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:collecta_verse_pt2/models/post.dart';
-import 'package:collecta_verse_pt2/resources/storage_methods.dart';
 import 'package:uuid/uuid.dart';
 
 class FirestoreMethods {

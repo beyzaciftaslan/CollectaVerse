@@ -1,14 +1,25 @@
+import 'dart:typed_data';
+
 import 'package:collecta_verse_pt2/components/my_button.dart';
 import 'package:collecta_verse_pt2/components/my_textfield.dart';
-import 'package:collecta_verse_pt2/helper/helper_functions.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:collecta_verse_pt2/helper/helper_functions.dart';
+import 'package:collecta_verse_pt2/mobile_layout.dart';
+import 'package:collecta_verse_pt2/pages/login_page.dart';
+import 'package:collecta_verse_pt2/services/auth/auth_methods.dart';
+import 'package:collecta_verse_pt2/utils/colors.dart';
+//import 'package:collecta_verse_pt2/services/auth/login_or_signup.dart';
+import 'package:collecta_verse_pt2/utils/utils.dart';
+//import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:line_icons/line_icon.dart';
+import 'package:line_icons/line_icons.dart';
 
 class SignupPage extends StatefulWidget {
-  final void Function() onTap;
+  //final void Function() onTap;
 
-  const SignupPage({super.key, required this.onTap});
+  const SignupPage({super.key});
 
   @override
   State<SignupPage> createState() => _SignupPageState();
@@ -16,55 +27,104 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends State<SignupPage> {
   //textcontrollers
-  final TextEditingController email_controller = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 
-  final TextEditingController password_controller = TextEditingController();
+  final TextEditingController _pwController = TextEditingController();
 
-  final TextEditingController confirm_pw_controller = TextEditingController();
+  final TextEditingController _confirmPwController = TextEditingController();
 
-  final TextEditingController username_controller = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  bool _isLoading = false;
+  Uint8List? _image;
+  final TextEditingController _bioController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _emailController.dispose();
+    _pwController.dispose();
+    _confirmPwController.dispose();
+    _usernameController.dispose();
+  }
+
+  void selectImage() async {
+    Uint8List im = await pickImage(ImageSource.gallery);
+    setState(() {
+      _image = im;
+    });
+  }
 
   //log methos
-  void signup() async {
-    //print(email_controller.text);
-    //print(password_controller.text);
+  // void signup() async {
+  //   //loading circle
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) => const Center(
+  //       child: CircularProgressIndicator(),
+  //     ),
+  //   );
 
-    //loading circle
-    showDialog(
-      context: context,
-      builder: (context) => const Center(
-        child: CircularProgressIndicator(),
+  //   //sifre eslesiyo mu
+  //   if (_pwController.text != _confirmPwController.text) {
+  //     //circle
+  //     Navigator.pop(context);
+
+  //     //show err mesaage
+  //     displayMessageToUser("Passwords do not match!", context);
+  //   }
+  //   //if passwords match
+  //   else {
+  //     //creat the user
+  //     try {
+  //       //create user
+  //       UserCredential userCredential = await FirebaseAuth.instance
+  //           .createUserWithEmailAndPassword(
+  //               email:  _emailController.text,
+  //               password: _pwController.text);
+
+  //       //circle
+  //       Navigator.pop(context);
+  //     } on FirebaseAuthException catch (e) {
+  //       //circle
+  //       Navigator.pop(context);
+
+  //       //show err mesaage
+  //       displayMessageToUser(e.code, context);
+  //     }
+  //   }
+  // }
+
+  void signUpUser() async {
+    setState(() {
+      _isLoading = true;
+    });
+    String res = await AuthMethods().signUpUser(
+      email: _emailController.text,
+      password: _pwController.text,
+      username: _usernameController.text,
+      file: _image!,
+      bio: _bioController.text,
+    );
+    setState(() {
+      _isLoading = false;
+    });
+    if (res != 'success') {
+      showSnackBar(context, res);
+    } else {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const MobileScreenLayout(),
+        ),
+      );
+    }
+  }
+
+  void navigateToLogin() async {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => LoginPage(),
       ),
     );
-
-    //sifre eslesiyo mu
-    if (password_controller.text != confirm_pw_controller.text) {
-      //circle
-      Navigator.pop(context);
-
-      //show err mesaage
-      displayMessageToUser("Passwords do not match!", context);
-    }
-    //if passwords match
-    else {
-      //creat the user
-      try {
-        //create user
-        UserCredential userCredential = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(
-                email: email_controller.text,
-                password: password_controller.text);
-
-        //circle
-        Navigator.pop(context);
-      } on FirebaseAuthException catch (e) {
-        //circle
-        Navigator.pop(context);
-
-        //show err mesaage
-        displayMessageToUser(e.code, context);
-      }
-    }
   }
 
   @override
@@ -78,13 +138,39 @@ class _SignupPageState extends State<SignupPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 //logo
-                Icon(
-                  Icons.favorite_border_outlined,
-                  size: 80,
-                  color: Colors.black,
-                ),
+                // Icon(
+                //   Icons.favorite_border_outlined,
+                //   size: 80,
+                //   color: Colors.black,
+                // ),
+                //Flexible(child: Container(), flex: 2),
                 const SizedBox(height: 20),
-
+                Stack(children: [
+                  _image != null
+                      ? CircleAvatar(
+                          radius: 64,
+                          backgroundImage: MemoryImage(_image!),
+                          backgroundColor: color4,
+                        )
+                      : const CircleAvatar(
+                          radius: 64,
+                          backgroundImage: NetworkImage(
+                              'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/340px-Default_pfp.svg.png'),
+                          backgroundColor: color4,
+                        ),
+                  Positioned(
+                    bottom: -10,
+                    left: 80,
+                    child: IconButton(
+                      onPressed: selectImage,
+                      icon:  const Icon(
+                        LineIcons.camera,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ]),
+                const SizedBox(height: 20),
                 //uyg adi
                 Text(
                   'C O L L E C T A  V E R S E',
@@ -92,13 +178,13 @@ class _SignupPageState extends State<SignupPage> {
                     fontSize: 20,
                   ),
                 ),
-                const SizedBox(height: 40),
+                const SizedBox(height: 20),
 
                 //mail textfield
                 MyTextField(
                     hintText: "Username",
                     obscureText: false,
-                    controller: username_controller),
+                    controller: _usernameController),
 
                 const SizedBox(height: 10),
 
@@ -106,7 +192,7 @@ class _SignupPageState extends State<SignupPage> {
                 MyTextField(
                     hintText: "E-mail",
                     obscureText: false,
-                    controller: email_controller),
+                    controller: _emailController),
 
                 const SizedBox(height: 10),
 
@@ -114,7 +200,7 @@ class _SignupPageState extends State<SignupPage> {
                 MyTextField(
                   hintText: "Password",
                   obscureText: true,
-                  controller: password_controller,
+                  controller: _pwController,
                 ),
 
                 const SizedBox(height: 10),
@@ -123,7 +209,7 @@ class _SignupPageState extends State<SignupPage> {
                 MyTextField(
                   hintText: "Confirm Password",
                   obscureText: true,
-                  controller: confirm_pw_controller,
+                  controller: _confirmPwController,
                 ),
 
                 const SizedBox(height: 10),
@@ -146,7 +232,7 @@ class _SignupPageState extends State<SignupPage> {
                 //log in button
                 MyButton(
                   text: "Signup",
-                  onTap: signup,
+                  onTap: signUpUser,
                 ),
 
                 const SizedBox(height: 10),
@@ -162,7 +248,13 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: widget.onTap,
+                      onTap: () {
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => const LoginPage(),
+                          ),
+                        );
+                      },
                       child: const Text(
                         " Login Here!",
                         style: TextStyle(

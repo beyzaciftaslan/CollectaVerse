@@ -16,7 +16,8 @@ class User {
       required this.email,
       required this.bio,
       required this.followers,
-      required this.following});
+      required this.following });
+
 
   static User fromSnap(DocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;

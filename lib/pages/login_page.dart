@@ -1,16 +1,18 @@
 import 'package:collecta_verse_pt2/components/my_button.dart';
 import 'package:collecta_verse_pt2/components/my_square_tile.dart';
 import 'package:collecta_verse_pt2/components/my_textfield.dart';
-import 'package:collecta_verse_pt2/helper/helper_functions.dart';
-import 'package:collecta_verse_pt2/services/auth_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:collecta_verse_pt2/mobile_layout.dart';
+import 'package:collecta_verse_pt2/pages/signup_page.dart';
+import 'package:collecta_verse_pt2/services/auth/auth_methods.dart';
+import 'package:collecta_verse_pt2/services/auth/g_auth_service.dart';
+import 'package:collecta_verse_pt2/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+//import 'package:flutter/widgets.dart';
 
 class LoginPage extends StatefulWidget {
-  final void Function() onTap;
+  //final void Function() onTap;
 
-  const LoginPage({super.key, required this.onTap});
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -18,41 +20,80 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   //textcontrollers
-  final TextEditingController email_controller = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _pwController = TextEditingController();
+  bool _isLoading = false;
 
-  final TextEditingController password_controller = TextEditingController();
+  // //log methos
+  // void login() async {
+  //   //print(email_controller.text);
+  //   //print(password_controller.text);
 
-  //log methos
-  void login() async {
-    //print(email_controller.text);
-    //print(password_controller.text);
+  //   //loading circle
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) => const Center(
+  //       child: CircularProgressIndicator(),
+  //     ),
+  //   );
 
-    //loading circle
-    showDialog(
-      context: context,
-      builder: (context) => const Center(
-        child: CircularProgressIndicator(),
+  //   //signin
+  //   try {
+  //     await FirebaseAuth.instance.signInWithEmailAndPassword(
+  //         email: _emailController.text, password: _pwController.text);
+
+  //     //circle
+  //     if (context.mounted) {
+  //       Navigator.pop(context);
+  //     }
+  //   }
+  //   //display errs
+  //   on FirebaseAuthException catch (e) {
+  //     //circle
+  //     Navigator.pop(context);
+
+  //     //show err mesaage
+  //     displayMessageToUser(e.code, context);
+  //   }
+  // }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _emailController.dispose();
+    _pwController.dispose();
+  } //important bc f the when they are no longer needed
+
+  void loginUser() async {
+    setState(() {
+      _isLoading = true;
+    });
+    String res = await AuthMethods().loginUser(
+      email: _emailController.text,
+      password: _pwController.text,
+    );
+    if (res == "success") {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const MobileScreenLayout()),
+      );
+
+      //Navigator.of(context).pushReplacement(
+      //  MaterialPageRoute(builder: (context) => const HomeScreen()));//if login success this code navigate us the homeScreen
+    } else {
+      //
+      showSnackBar(context, res);
+    }
+    setState(() {
+      _isLoading = false;
+    }); //icreated this in utils.dart
+  }
+
+  void navigateToSignup() async {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const SignupPage(),
       ),
     );
-
-    //signin
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: email_controller.text, password: password_controller.text);
-
-      //circle
-      if (context.mounted) {
-        Navigator.pop(context);
-      }
-    }
-    //display errs
-    on FirebaseAuthException catch (e) {
-      //circle
-      Navigator.pop(context);
-
-      //show err mesaage
-      displayMessageToUser(e.code, context);
-    }
   }
 
   @override
@@ -88,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                   MyTextField(
                       hintText: "E-mail",
                       obscureText: false,
-                      controller: email_controller),
+                      controller: _emailController),
 
                   const SizedBox(height: 10),
 
@@ -96,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                   MyTextField(
                     hintText: "Password",
                     obscureText: true,
-                    controller: password_controller,
+                    controller: _pwController,
                   ),
 
                   const SizedBox(height: 10),
@@ -119,7 +160,7 @@ class _LoginPageState extends State<LoginPage> {
                   //log in button
                   MyButton(
                     text: "Sign In",
-                    onTap: login,
+                    onTap: loginUser,
                   ),
 
                   const SizedBox(height: 30),
@@ -163,7 +204,7 @@ class _LoginPageState extends State<LoginPage> {
                       //google png
                       MySquareTile(
                         imagePath: "lib/images/google.png",
-                        onTap: () => AuthService().signInWithGoogle(),
+                        onTap: () => GAuthService().signInWithGoogle(),
                       ),
                       SizedBox(
                         width: 20,
@@ -190,7 +231,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       GestureDetector(
-                        onTap: widget.onTap,
+                        onTap: navigateToSignup,
                         child: const Text(
                           " Signup Here!",
                           style: TextStyle(

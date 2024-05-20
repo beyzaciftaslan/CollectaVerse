@@ -16,7 +16,7 @@ class _NotificationPageState extends State<NotificationPage> {
       ),
       body: const Center(
         child: Text("Notification Page"),
-      ), 
+      ),
     );
   }
 }
