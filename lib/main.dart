@@ -2,6 +2,7 @@ import 'package:collecta_verse_pt2/pages/login_page.dart';
 //import 'package:collecta_verse_pt2/services/auth/auth_gate.dart';
 //import 'package:collecta_verse_pt2/auth/login_or_signup.dart';
 import 'package:collecta_verse_pt2/firebase_options.dart';
+import 'package:collecta_verse_pt2/pages/profile_screen.dart';
 import 'package:collecta_verse_pt2/providers/user_provider.dart';
 //import 'package:collecta_verse_pt2/pages/onboarding_page.dart';
 import 'package:collecta_verse_pt2/theme/dark_mode.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const LoginPage(),
+        home: const ProfileScreen(),
         theme: lightMode,
         darkTheme: darkMode,
       ),
