@@ -2,7 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collecta_verse_pt2/models/user.dart' as model;
 import 'package:collecta_verse_pt2/pages/comments_page.dart';
 import 'package:collecta_verse_pt2/providers/user_provider.dart';
-import 'package:collecta_verse_pt2/services/storage/firestore_methods.dart';
+import 'package:collecta_verse_pt2/services/firestore_methods.dart';
+
 import 'package:collecta_verse_pt2/utils/colors.dart';
 import 'package:collecta_verse_pt2/utils/pages.dart';
 import 'package:collecta_verse_pt2/utils/utils.dart';
@@ -69,9 +70,9 @@ class _PostCardState extends State<PostCard> {
       // boundary needed for web
       decoration: BoxDecoration(
         border: Border.all(
-          color: width > webScreenSize ? secondaryColor : mobileBackgorundColor,
+          color: width > webScreenSize ? secondaryColor : mobileBackgroundColor,
         ),
-        color: mobileBackgorundColor,
+        color: mobileBackgroundColor,
       ),
       padding: const EdgeInsets.symmetric(
         vertical: 10,

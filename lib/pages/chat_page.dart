@@ -31,7 +31,7 @@ class ChatPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Chat Page"),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },

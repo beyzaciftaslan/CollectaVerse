@@ -3,9 +3,7 @@ import 'package:collecta_verse_pt2/introduction_screens/intro_page_1.dart';
 import 'package:collecta_verse_pt2/introduction_screens/intro_page_2.dart';
 import 'package:collecta_verse_pt2/introduction_screens/intro_page_3.dart';
 import 'package:collecta_verse_pt2/utils/colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingPage extends StatefulWidget {
@@ -17,7 +15,7 @@ class OnboardingPage extends StatefulWidget {
 
 class _OnboardingPageState extends State<OnboardingPage> {
   //controller
-  PageController _controller = PageController();
+  final PageController _controller = PageController();
 
   //son sayfadamiyim kontrolu
   bool onLastPage = false;
@@ -33,7 +31,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
               onLastPage = (index == 2);
             });
           },
-          children: [
+          children: const [
             IntroPage1(),
             IntroPage2(),
             IntroPage3(),
@@ -41,7 +39,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
         ),
         //dot indicator
         Container(
-            alignment: Alignment(0, 0.75),
+            alignment: const Alignment(0, 0.75),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -50,7 +48,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     onTap: () {
                       _controller.jumpToPage(2);
                     },
-                    child: Text("skip")),
+                    child: const Text("skip")),
 
                 //dot indicator
                 SmoothPageIndicator(
@@ -70,16 +68,16 @@ class _OnboardingPageState extends State<OnboardingPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => LoginPage()));
+                                  builder: (context) => const LoginPage()));
                         },
-                        child: Text("done"))
+                        child: const Text("done"))
                     : GestureDetector(
                         onTap: () {
                           _controller.nextPage(
-                              duration: Duration(milliseconds: 500),
+                              duration: const Duration(milliseconds: 500),
                               curve: Curves.easeIn);
                         },
-                        child: Text("next")),
+                        child: const Text("next")),
               ],
             ))
       ],

@@ -3,8 +3,8 @@ import 'package:collecta_verse_pt2/components/my_square_tile.dart';
 import 'package:collecta_verse_pt2/components/my_textfield.dart';
 import 'package:collecta_verse_pt2/mobile_layout.dart';
 import 'package:collecta_verse_pt2/pages/signup_page.dart';
-import 'package:collecta_verse_pt2/services/auth/auth_methods.dart';
-import 'package:collecta_verse_pt2/services/auth/g_auth_service.dart';
+import 'package:collecta_verse_pt2/services/auth_methods.dart';
+import 'package:collecta_verse_pt2/services/g_auth_service.dart';
 import 'package:collecta_verse_pt2/utils/utils.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter/widgets.dart';
@@ -23,39 +23,6 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _pwController = TextEditingController();
   bool _isLoading = false;
-
-  // //log methos
-  // void login() async {
-  //   //print(email_controller.text);
-  //   //print(password_controller.text);
-
-  //   //loading circle
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) => const Center(
-  //       child: CircularProgressIndicator(),
-  //     ),
-  //   );
-
-  //   //signin
-  //   try {
-  //     await FirebaseAuth.instance.signInWithEmailAndPassword(
-  //         email: _emailController.text, password: _pwController.text);
-
-  //     //circle
-  //     if (context.mounted) {
-  //       Navigator.pop(context);
-  //     }
-  //   }
-  //   //display errs
-  //   on FirebaseAuthException catch (e) {
-  //     //circle
-  //     Navigator.pop(context);
-
-  //     //show err mesaage
-  //     displayMessageToUser(e.code, context);
-  //   }
-  // }
 
   @override
   void dispose() {
@@ -76,16 +43,12 @@ class _LoginPageState extends State<LoginPage> {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const MobileScreenLayout()),
       );
-
-      //Navigator.of(context).pushReplacement(
-      //  MaterialPageRoute(builder: (context) => const HomeScreen()));//if login success this code navigate us the homeScreen
     } else {
-      //
       showSnackBar(context, res);
     }
     setState(() {
       _isLoading = false;
-    }); //icreated this in utils.dart
+    });
   }
 
   void navigateToSignup() async {
@@ -99,152 +62,142 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        body: SafeArea(
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(25.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 25),
-                  //logo
-                  Icon(
-                    Icons.favorite_border_outlined,
-                    size: 80,
-                    color: Colors.black,
+      backgroundColor: Theme.of(context).colorScheme.background,
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(25.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(height: 25),
+                //logo
+                Icon(
+                  Icons.favorite_border_outlined,
+                  size: 80,
+                  color: Colors.black,
+                ),
+                const SizedBox(height: 20),
+                //uyg adi
+                Text(
+                  'C O L L E C T A  V E R S E',
+                  style: TextStyle(
+                    fontSize: 20,
                   ),
-                  const SizedBox(height: 20),
-
-                  //uyg adi
-                  Text(
-                    'C O L L E C T A  V E R S E',
-                    style: TextStyle(
-                      fontSize: 20,
+                ),
+                const SizedBox(height: 25),
+                //mail textfield
+                MyTextField(
+                  hintText: "E-mail",
+                  obscureText: false,
+                  controller: _emailController,
+                ),
+                const SizedBox(height: 10),
+                //password textfield
+                MyTextField(
+                  hintText: "Password",
+                  obscureText: true,
+                  controller: _pwController,
+                ),
+                const SizedBox(height: 10),
+                //forgot p
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      "Forgot password?",
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 25),
-
-                  //mail textfield
-                  MyTextField(
-                      hintText: "E-mail",
-                      obscureText: false,
-                      controller: _emailController),
-
-                  const SizedBox(height: 10),
-
-                  //password textfield
-                  MyTextField(
-                    hintText: "Password",
-                    obscureText: true,
-                    controller: _pwController,
-                  ),
-
-                  const SizedBox(height: 10),
-
-                  //forgot p
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                  ],
+                ),
+                const SizedBox(height: 10),
+                //log in button
+                MyButton(
+                  text: "Sign In",
+                  onTap: loginUser,
+                ),
+                const SizedBox(height: 30),
+                //or coninue with
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Row(
                     children: [
-                      Text(
-                        "Forgot password?",
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.secondary,
+                      Expanded(
+                        child: Divider(
+                          thickness: 0.5,
+                          color: Colors.grey[400],
                         ),
                       ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 10),
-
-                  //log in button
-                  MyButton(
-                    text: "Sign In",
-                    onTap: loginUser,
-                  ),
-
-                  const SizedBox(height: 30),
-
-                  //or coninue with
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Divider(
-                            thickness: 0.5,
-                            color: Colors.grey[400],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Text(
-                            'Or continue with',
-                            style: TextStyle(
-                              color: Colors.grey[700],
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Divider(
-                            thickness: 0.5,
-                            color: Colors.grey[400],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  const SizedBox(height: 30),
-
-                  //google+apple sign in buttons
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      //google png
-                      MySquareTile(
-                        imagePath: "lib/images/google.png",
-                        onTap: () => GAuthService().signInWithGoogle(),
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      //apple png
-                      MySquareTile(
-                        imagePath: "lib/images/apple.png",
-                        onTap: () {
-                          //sign in with apple
-                        },
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 30),
-
-                  //dont you have an account? sign up here
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Don't you have an account?",
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.inversePrimary,
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: navigateToSignup,
-                        child: const Text(
-                          " Signup Here!",
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Text(
+                          'Or continue with',
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
+                            color: Colors.grey[700],
                           ),
                         ),
                       ),
+                      Expanded(
+                        child: Divider(
+                          thickness: 0.5,
+                          color: Colors.grey[400],
+                        ),
+                      ),
                     ],
-                  )
-                ],
-              ),
+                  ),
+                ),
+                const SizedBox(height: 30),
+                //google+apple sign in buttons
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    //google png
+                    MySquareTile(
+                      imagePath: "lib/images/google.png",
+                      onTap: () => GAuthService().signInWithGoogle(),
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    //apple png
+                    MySquareTile(
+                      imagePath: "lib/images/apple.png",
+                      onTap: () {
+                        //sign in with apple
+                      },
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 30),
+                //dont you have an account? sign up here
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Don't you have an account?",
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.inversePrimary,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: navigateToSignup,
+                      child: const Text(
+                        " Signup Here!",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
+

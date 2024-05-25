@@ -23,7 +23,7 @@ class MyNavBar extends StatelessWidget {
             color: Colors.black,
             tabBackgroundColor: Colors.grey.shade100,
             gap: 8,
-            padding: EdgeInsets.all(15),
+            padding: const EdgeInsets.all(15),
             tabs: const [
               //Ev
               GButton(

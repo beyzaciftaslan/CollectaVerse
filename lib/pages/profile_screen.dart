@@ -4,6 +4,7 @@ import 'package:collecta_verse_pt2/pages/profile%20tabs/video_view.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatefulWidget {
+
   const ProfileScreen({super.key});
 
   @override
@@ -11,6 +12,9 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+
+
+
   final List<Widget> tabs = const [
     //feed tab
     Tab(
@@ -47,31 +51,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
         body: SafeArea(
           child: Column(
             children: [
-              //PROFILE DETAILS
-              SizedBox(height: 15),
+              //PROFILE
+              const SizedBox(height: 15),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // following
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
-                    children:  [
-                      Text(
+                    children: [
+                      const Text(
                         '364',
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
-                      Text('Following',
-                      style: TextStyle(color: Colors.grey[600]),),
+                      Text(
+                        'Following',
+                        style: TextStyle(color: Colors.grey[600]),
+                      ),
                     ],
                   ),
-                  // profile pic
+                  //profile pic
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Container(
                       height: 100,
                       width: 100,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                         color: Colors.white,
                       ),
@@ -82,23 +88,97 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         '364',
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       // SizedBox(height: 3),
-                      Text('Followers',
-                          style: TextStyle(color: Colors.grey[600]),),
+                      Text(
+                        'Followers',
+                        style: TextStyle(color: Colors.grey[600]),
+                      ),
                     ],
                   ),
                 ],
               ),
+              const SizedBox(height: 15),
+              // name
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Beyza Çiftaslan',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ), // Text
+                  Text(' | '),
+                  Text(
+                    'Developer',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ), // Text
+                ],
+              ),
+              const SizedBox(height: 7),
+              // Row
+              // bio
+              Text(
+                'UI Designer • Programmer • Student at Erciyes Uni',
+                style: TextStyle(color: Colors.grey[600]),
+              ), // Text
 
+              const SizedBox(height: 3),
+
+// link
+              Text(
+                'youtube.com/chogiwa',
+                style: TextStyle(
+                  color: Colors.blue[500],
+                  fontWeight: FontWeight.bold,
+                ),
+              ), // Text
+
+              const SizedBox(height: 15),
+              // buttons
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Row(
+                  children: [
+                    // edit profile
+                    Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                            color: Colors.grey[400],
+                            borderRadius: BorderRadius.circular(10)),
+                        child: const Center(
+                          child: Text("Edit Profile"),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: const Center(
+                          child: Text(
+                            "Edit Profile",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 10),
 
               TabBar(tabs: tabs),
               //tab bar view
-              Expanded(child: TabBarView(children: tabBarView))
+              // SizedBox(child: TabBarView(children: tabBarView)),
             ],
           ),
         ),

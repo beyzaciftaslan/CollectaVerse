@@ -1,3 +1,214 @@
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:collecta_verse_pt2/pages/profile%20tabs/feed_view.dart';
+// import 'package:collecta_verse_pt2/pages/profile%20tabs/proofs_view.dart';
+// import 'package:collecta_verse_pt2/pages/profile%20tabs/video_view.dart';
+// import 'package:collecta_verse_pt2/utils/utils.dart';
+// import 'package:flutter/material.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+
+// class ProfilePage extends StatefulWidget {
+//   final String uid;
+//   const ProfilePage({super.key, required this.uid});
+
+//   @override
+//   State<ProfilePage> createState() => _ProfilePageState();
+// }
+
+// class _ProfilePageState extends State<ProfilePage> {
+//   var userData = {};
+//   int postLen = 0;
+//   int followers = 0;
+//   int following = 0;
+//   bool isFollowing = false;
+//   bool isLoading = false;
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     getData();
+//   }
+
+//   getData() async {
+//     setState(() {
+//       isLoading = true;
+//     });
+//     try {
+//       var userSnap = await FirebaseFirestore.instance
+//           .collection('users')
+//           .doc(widget.uid)
+//           .get();
+
+//       var postSnap = await FirebaseFirestore.instance
+//           .collection('posts')
+//           .where('uid', isEqualTo: widget.uid)
+//           .get();
+
+//       postLen = postSnap.docs.length;
+//       userData = userSnap.data()!;
+//       followers = userSnap.data()!['followers'].length;
+//       following = userSnap.data()!['following'].length;
+//       isFollowing = userSnap
+//           .data()!['followers']
+//           .contains(FirebaseAuth.instance.currentUser!.uid);
+//       setState(() {});
+//     } catch (e) {
+//       showSnackBar(
+//         // ignore: use_build_context_synchronously
+//         context,
+//         e.toString(),
+//       );
+//     }
+//     setState(() {
+//       isLoading = false;
+//     });
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return isLoading
+//         ? const Center(
+//             child: CircularProgressIndicator(),
+//           )
+//         : DefaultTabController(
+//             length: 3,
+//             child: Scaffold(
+//               body: SafeArea(
+//                 child: Column(
+//                   children: [
+//                     const SizedBox(height: 20),
+//                     Row(
+//                       mainAxisAlignment: MainAxisAlignment.center,
+//                       children: [
+//                         Column(
+//                           crossAxisAlignment: CrossAxisAlignment.end,
+//                           children: [
+//                             Text(
+//                               following.toString(),
+//                               style: const TextStyle(
+//                                   fontSize: 18, fontWeight: FontWeight.bold),
+//                             ),
+//                             Text(
+//                               'Following',
+//                               style: TextStyle(color: Colors.grey[600]),
+//                             ),
+//                           ],
+//                         ),
+//                         Padding(
+//                           padding: const EdgeInsets.symmetric(horizontal: 15),
+//                           child: CircleAvatar(
+//                             backgroundColor: Colors.grey,
+//                             backgroundImage: NetworkImage(
+//                               userData['photoUrl'],
+//                             ),
+//                             radius: 50,
+//                           ),
+//                         ),
+//                         Column(
+//                           crossAxisAlignment: CrossAxisAlignment.start,
+//                           children: [
+//                             Text(
+//                               followers.toString(),
+//                               style: const TextStyle(
+//                                   fontSize: 18, fontWeight: FontWeight.bold),
+//                             ),
+//                             Text(
+//                               'Followers',
+//                               style: TextStyle(color: Colors.grey[600]),
+//                             ),
+//                           ],
+//                         ),
+//                       ],
+//                     ),
+//                     const SizedBox(height: 15),
+//                     Row(
+//                       mainAxisAlignment: MainAxisAlignment.center,
+//                       children: [
+//                         Text(
+//                           userData['username'],
+//                           style: const TextStyle(fontWeight: FontWeight.bold),
+//                         ),
+//                         const Text(' | '),
+//                         const Text(
+//                           'Developer',
+//                           style: TextStyle(fontWeight: FontWeight.bold),
+//                         ),
+//                       ],
+//                     ),
+//                     const SizedBox(height: 7),
+//                     Text(
+//                       userData['bio'],
+//                       style: TextStyle(color: Colors.grey[600]),
+//                     ),
+//                     const SizedBox(height: 3),
+//                     Text(
+//                       'youtube.com/chogiwa',
+//                       style: TextStyle(
+//                         color: Colors.blue[500],
+//                         fontWeight: FontWeight.bold,
+//                       ),
+//                     ),
+//                     const SizedBox(height: 15),
+//                     Padding(
+//                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
+//                       child: Row(
+//                         children: [
+//                           Expanded(
+//                             child: Container(
+//                               padding: const EdgeInsets.all(20),
+//                               decoration: BoxDecoration(
+//                                   color: Colors.grey[400],
+//                                   borderRadius: BorderRadius.circular(10)),
+//                               child: const Center(
+//                                 child: Text("Edit Profile"),
+//                               ),
+//                             ),
+//                           ),
+//                           const SizedBox(width: 10),
+//                           Expanded(
+//                             child: Container(
+//                               padding: const EdgeInsets.all(20),
+//                               decoration: BoxDecoration(
+//                                 color: Colors.black,
+//                                 borderRadius: BorderRadius.circular(10),
+//                               ),
+//                               child: const Center(
+//                                 child: Text(
+//                                   "Edit Profile",
+//                                   style: TextStyle(color: Colors.white),
+//                                 ),
+//                               ),
+//                             ),
+//                           ),
+//                         ],
+//                       ),
+//                     ),
+//                     const SizedBox(height: 10),
+//                     const TabBar(
+//                       tabs: [
+//                         Tab(icon: Icon(Icons.image, color: Colors.grey)),
+//                         Tab(
+//                             icon: Icon(Icons.video_collection,
+//                                 color: Colors.grey)),
+//                         Tab(icon: Icon(Icons.star, color: Colors.grey)),
+//                       ],
+//                     ),
+//                     const Expanded(
+//                       child: TabBarView(
+//                         children: [
+//                           FeedView(),
+//                           VideoView(),
+//                           ProofsView(),
+//                         ],
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//           );
+//   }
+// }
+
 // import 'package:collecta_verse_pt2/utils/colors.dart';
 // import 'package:flutter/material.dart';
 
@@ -50,15 +261,15 @@
 //   }
 // }
 import 'package:collecta_verse_pt2/pages/login_page.dart';
-import 'package:collecta_verse_pt2/services/auth/auth_methods.dart';
-import 'package:collecta_verse_pt2/services/storage/firestore_methods.dart';
+import 'package:collecta_verse_pt2/services/auth_methods.dart';
+import 'package:collecta_verse_pt2/services/firestore_methods.dart';
+
 import 'package:collecta_verse_pt2/utils/colors.dart';
 import 'package:collecta_verse_pt2/utils/utils.dart';
 import 'package:collecta_verse_pt2/widgets/follow_button.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 
 class ProfilePage extends StatefulWidget {
   final String uid;
@@ -125,7 +336,7 @@ class _ProfileScreenState extends State<ProfilePage> {
           )
         : Scaffold(
             appBar: AppBar(
-              backgroundColor: mobileBackgorundColor,
+              backgroundColor: mobileBackgroundColor,
               title: Text(
                 userData['username'],
               ),
@@ -169,7 +380,7 @@ class _ProfileScreenState extends State<ProfilePage> {
                                         ? FollowButton(
                                             text: 'Sign Out',
                                             backgroundColor:
-                                                mobileBackgorundColor,
+                                                mobileBackgroundColor,
                                             textColor: primaryColor,
                                             borderColor: Colors.grey,
                                             function: () async {

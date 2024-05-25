@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:collecta_verse_pt2/services/storage/storage_methods.dart';
+import 'package:collecta_verse_pt2/services/storage_methods.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:collecta_verse_pt2/models/user.dart' as model;
 

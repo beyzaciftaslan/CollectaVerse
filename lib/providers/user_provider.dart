@@ -1,4 +1,5 @@
-import 'package:collecta_verse_pt2/services/auth/auth_methods.dart';
+
+import 'package:collecta_verse_pt2/services/auth_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:collecta_verse_pt2/models/user.dart';
 

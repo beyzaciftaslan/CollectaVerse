@@ -2,7 +2,7 @@ import 'dart:typed_data';
 import 'package:collecta_verse_pt2/components/my_drawer.dart';
 import 'package:collecta_verse_pt2/models/user.dart';
 import 'package:collecta_verse_pt2/providers/user_provider.dart';
-import 'package:collecta_verse_pt2/services/storage/firestore_methods.dart';
+import 'package:collecta_verse_pt2/services/firestore_methods.dart';
 import 'package:collecta_verse_pt2/utils/colors.dart';
 import 'package:collecta_verse_pt2/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -28,8 +28,8 @@ class _AddPostPageState extends State<AddPostPage> {
       _isLoading = true;
     });
     try {
-      String res = await FirestoreMethods().uploadPost(
-          _captionController.text, _file!, uid, username, '');
+      String res = await FirestoreMethods()
+          .uploadPost(_captionController.text, _file!, uid, username, '');
       if (res == "success") {
         setState(() {
           _isLoading = false;
@@ -43,10 +43,12 @@ class _AddPostPageState extends State<AddPostPage> {
         showSnackBar(context, res);
       }
     } catch (e) {
+      setState(() {
+        _isLoading = false;
+      });
       showSnackBar(context, e.toString());
     }
   }
-
 
   _selectImage(BuildContext context) async {
     return showDialog(
@@ -110,7 +112,6 @@ class _AddPostPageState extends State<AddPostPage> {
     final userProvider = Provider.of<UserProvider>(context);
     final User? user = userProvider.getUser;
 
-
     return _file == null
         ? Scaffold(
             appBar: AppBar(
@@ -144,7 +145,7 @@ class _AddPostPageState extends State<AddPostPage> {
               title: const Text('Post your collect items!'),
               backgroundColor: color4,
             ),
-            body: Padding(
+            body: SingleChildScrollView(
               padding: const EdgeInsets.all(20),
               child: Column(
                 children: [

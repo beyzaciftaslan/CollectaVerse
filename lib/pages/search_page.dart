@@ -4,7 +4,6 @@ import 'package:collecta_verse_pt2/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
 
@@ -20,7 +19,7 @@ class _SearchScreenState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: mobileBackgorundColor,
+        backgroundColor: mobileBackgroundColor,
         title: Form(
           child: TextFormField(
             controller: searchController,
@@ -76,7 +75,8 @@ class _SearchScreenState extends State<SearchPage> {
                 );
               },
             )
-          : FutureBuilder( //show posts in the search screen
+          : FutureBuilder(
+              //show posts in the search screen
               future: FirebaseFirestore.instance
                   .collection('posts')
                   .orderBy('datePublished')
@@ -103,5 +103,3 @@ class _SearchScreenState extends State<SearchPage> {
     );
   }
 }
-
-

@@ -1,6 +1,7 @@
 import 'package:collecta_verse_pt2/models/user.dart';
 import 'package:collecta_verse_pt2/providers/user_provider.dart';
-import 'package:collecta_verse_pt2/services/storage/firestore_methods.dart';
+import 'package:collecta_verse_pt2/services/firestore_methods.dart';
+
 import 'package:collecta_verse_pt2/utils/colors.dart';
 import 'package:collecta_verse_pt2/utils/utils.dart';
 import 'package:collecta_verse_pt2/widgets/comment_card.dart';
@@ -49,7 +50,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: mobileBackgorundColor,
+        backgroundColor: mobileBackgroundColor,
         title: const Text(
           'Comments',
         ),

@@ -42,9 +42,9 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView(
-        children: homeScreenItems,
         controller: _pageController,
         onPageChanged: onPageChanged,
+        children: homeScreenItems,
       ),
 
 
@@ -61,7 +61,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
             color: Colors.black,
             tabBackgroundColor: Colors.grey.shade100,
             gap: 8,
-            padding: EdgeInsets.all(15),
+            padding: const EdgeInsets.all(15),
             tabs: const [
               //Ev
               GButton(

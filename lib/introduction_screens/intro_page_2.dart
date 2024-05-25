@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 class IntroPage2 extends StatelessWidget {
+  const IntroPage2({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,8 +18,8 @@ class IntroPage2 extends StatelessWidget {
                 width: 250,
                 height: 250,
               ),
-              SizedBox(height: 20),
-              Text('Sell or trade your collection products easily!'),
+              const SizedBox(height: 20),
+              const Text('Sell or trade your collection products easily!'),
             ],
           ),
         ],

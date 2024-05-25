@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 class IntroPage1 extends StatelessWidget {
+  const IntroPage1({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,8 +18,8 @@ class IntroPage1 extends StatelessWidget {
                 width: 250,
                 height: 250,
               ),
-              SizedBox(height: 20),
-              Text('Find the collect items you have been loooking for!'),
+              const SizedBox(height: 20),
+              const Text('Find the collect items you have been loooking for!'),
             ],
           ),
         ],

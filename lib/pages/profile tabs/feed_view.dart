@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class FeedView extends StatelessWidget {
   const FeedView({super.key});
 
